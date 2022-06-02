@@ -9,18 +9,18 @@ class SolveGameUseCase:
     self.print_steps = print_steps
     self.create_game = create_game
 
-  def _print(self):
+  def _print(self, game: IGame):
     new_game = self.create_game(self.game.initial_state)
     new_game.print_curr()
     print()
-    
-    for move in self.game.moves:
+
+    for move in game.moves:
       new_game.move(move)
       new_game.print_curr()
       print()
 
   def execute(self):
-    self.solver.solve()
-    print(len(self.game.moves), end='\n\n')
+    solved_game = self.solver.solve()
+    print(len(solved_game.moves), end='\n\n')
     if (self.print_steps):
-      self._print()
+      self._print(solved_game)

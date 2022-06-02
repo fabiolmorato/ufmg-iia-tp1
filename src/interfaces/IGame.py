@@ -29,3 +29,9 @@ class IGame(abc.ABC):
   @abc.abstractmethod
   def move(self, direction: str):
     return
+
+class GameMoves:
+  UP = 0
+  DOWN = 1
+  LEFT = 2
+  RIGHT = 3
