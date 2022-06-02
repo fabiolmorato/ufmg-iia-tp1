@@ -5,6 +5,8 @@ from typing import List
 moves = [GameMoves.UP, GameMoves.DOWN, GameMoves.LEFT, GameMoves.RIGHT]
 
 class Greedy(ISolver):
+  identifier = 'G'
+
   def __init__(self, game: IGame):
     self.game = game.copy()
   
@@ -47,3 +49,5 @@ class Greedy(ISolver):
       score = self.evaluate_state(self.game.state)
     
     return self.game
+
+export = Greedy

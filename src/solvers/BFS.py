@@ -4,6 +4,8 @@ from interfaces.ISolver import ISolver
 moves = [GameMoves.UP, GameMoves.DOWN, GameMoves.LEFT, GameMoves.RIGHT]
 
 class BFS(ISolver):
+  identifier = 'B'
+
   def __init__(self, game: IGame):
     self.queue = [game]
 
@@ -24,3 +26,5 @@ class BFS(ISolver):
           copy = game.copy()
           copy.move(move)
           self.queue.append(copy)
+
+export = BFS
