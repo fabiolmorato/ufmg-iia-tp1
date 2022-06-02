@@ -1,7 +1,5 @@
 from interfaces.IGame import IGame, GameMoves
 from interfaces.ISolver import ISolver
-from typing import List
-from time import sleep
 
 moves = [GameMoves.UP, GameMoves.DOWN, GameMoves.LEFT, GameMoves.RIGHT]
 
@@ -18,7 +16,6 @@ class BFS(ISolver):
   
   def solve(self):
     for game in self.queue:
-      sleep(0.5)
       if self.check_game_solved(game):
         self.queue = []
         return game
