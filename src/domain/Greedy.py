@@ -27,12 +27,21 @@ class Greedy(ISolver):
         if score > best_score:
           best_move = move
           best_score = score
+        
     return best_move
   
   def solve(self):
     score = self.evaluate_state(self.game.state)
+    last_move = None
+    opposing = {'up': 'down', 'down': 'up', 'left': 'right', 'right': 'left'}
     
     while score != 8:
+      print(score)
       move = self.choose_next_best_state()
+      if move == None:
+        break
+      if last_move != None and move == opposing[last_move]:
+        break
       self.game.move(move)
+      last_move = opposing[move]
       score = self.evaluate_state(self.game.state)
