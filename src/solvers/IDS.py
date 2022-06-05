@@ -1,8 +1,5 @@
 from interfaces.IGame import IGame, GameMoves
 from interfaces.ISolver import ISolver
-from typing import Tuple
-
-from time import sleep
 
 moves = [GameMoves.UP, GameMoves.DOWN, GameMoves.LEFT, GameMoves.RIGHT]
 
