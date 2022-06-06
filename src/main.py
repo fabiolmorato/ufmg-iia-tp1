@@ -11,7 +11,7 @@ class TP1:
     self.solver_loader = SolverLoader()
     self.solver_loader.load_from_directory('src/solvers')
     self.should_print = False
-    self.config = {}
+    self.config = {"limit": 128}
     self.args = self.get_args()
     self.prepare()
 

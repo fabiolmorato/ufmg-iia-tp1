@@ -2,6 +2,8 @@ from interfaces.IGame import IGame, GameMoves
 from interfaces.ISolver import ISolver
 from typing import Tuple, List
 
+from time import sleep
+
 _abs = abs
 
 x_coords = [0, 1, 2, 0, 1, 2, 0, 1, 2]
@@ -70,7 +72,8 @@ class Greedy(ISolver):
     score = self.evaluate_state(self.game.state)
     last_move = None
     opposing = {GameMoves.UP: GameMoves.DOWN, GameMoves.DOWN: GameMoves.UP, GameMoves.LEFT: GameMoves.RIGHT, GameMoves.RIGHT: GameMoves.LEFT}
-    
+    iterations = 0
+
     while score != 0:
       move = self.choose_next_best_state()
       if move == None:
@@ -80,6 +83,9 @@ class Greedy(ISolver):
       self.game.move(move)
       last_move = opposing[move]
       score = self.evaluate_state(self.game.state)
+      iterations += 1
+      if iterations > self.config['limit']:
+        break
     
     return self.game
 

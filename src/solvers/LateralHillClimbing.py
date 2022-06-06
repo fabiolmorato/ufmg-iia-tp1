@@ -38,7 +38,8 @@ class LateralHillClimbing(ISolver):
     score = self.evaluate_state(self.game.state)
     last_move = None
     opposing = {GameMoves.UP: GameMoves.DOWN, GameMoves.DOWN: GameMoves.UP, GameMoves.LEFT: GameMoves.RIGHT, GameMoves.RIGHT: GameMoves.LEFT}
-    
+    iterations = 0
+
     while score != 8:
       move = self.choose_next_best_state()
       if move == None:
@@ -48,6 +49,9 @@ class LateralHillClimbing(ISolver):
       self.game.move(move)
       last_move = opposing[move]
       score = self.evaluate_state(self.game.state)
+      iterations += 1
+      if iterations > self.config['limit']:
+        break
     
     return self.game
 
