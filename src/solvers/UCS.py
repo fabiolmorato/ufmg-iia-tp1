@@ -11,8 +11,9 @@ class Node:
 class UCS(ISolver):
   identifier = 'U'
 
-  def __init__(self, game: IGame):
+  def __init__(self, game: IGame, config: dict):
     self.queue = [Node(game, 0)]
+    self.config = config
   
   def is_solution(self, game: IGame) -> bool:
     correct_positions = 0

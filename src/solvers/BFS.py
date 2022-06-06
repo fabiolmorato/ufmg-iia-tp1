@@ -6,8 +6,9 @@ moves = [GameMoves.UP, GameMoves.DOWN, GameMoves.LEFT, GameMoves.RIGHT]
 class BFS(ISolver):
   identifier = 'B'
 
-  def __init__(self, game: IGame):
+  def __init__(self, game: IGame, config: dict):
     self.queue = [game]
+    self.config = config
 
   def check_game_solved(self, game):
     correct_positions = 0

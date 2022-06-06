@@ -6,8 +6,9 @@ moves = [GameMoves.UP, GameMoves.DOWN, GameMoves.LEFT, GameMoves.RIGHT]
 class IDS(ISolver):
   identifier = 'I'
 
-  def __init__(self, game: IGame):
+  def __init__(self, game: IGame, config: dict):
     self.nodes = [game]
+    self.config = config
     self.max_depth = 4
   
   def walk_subtree(self, subtree: IGame, depth = 0):
