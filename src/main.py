@@ -1,4 +1,5 @@
 import sys
+import os
 
 from domain.EightPuzzle import EightPuzzle
 from domain.SolverLoader import SolverLoader
@@ -10,6 +11,7 @@ class TP1:
     self.solver_loader = SolverLoader()
     self.solver_loader.load_from_directory('src/solvers')
     self.should_print = False
+    self.config = {}
     self.args = self.get_args()
     self.prepare()
 
@@ -20,6 +22,7 @@ class TP1:
     self.get_initial_state()
     self.get_solver_identifier()
     self.get_should_print()
+    self.config['alternate_heuristic'] = os.environ.get('ALTERNATE_HEURISTIC') == 'True'
 
   def get_initial_state(self):
     config = self.args[1:10]
@@ -36,7 +39,7 @@ class TP1:
   def run(self):
     game = EightPuzzle(self.game_initial_state)
     solver_class = self.solver_loader.get_solver(self.solver_identifier)
-    solver = solver_class(game)
+    solver = solver_class(game, self.config)
     solve_game_use_case = SolveGameUseCase(game, solver, EightPuzzle, self.should_print)
     solve_game_use_case.execute()
 

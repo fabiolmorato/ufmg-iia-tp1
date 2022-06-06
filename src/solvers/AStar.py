@@ -1,6 +1,6 @@
 from interfaces.IGame import IGame, GameMoves
 from interfaces.ISolver import ISolver
-from typing import Tuple
+from typing import Tuple, List
 
 _abs = abs
 
@@ -17,9 +17,10 @@ class Node:
 class AStar(ISolver):
   identifier = 'A'
 
-  def __init__(self, game: IGame):
+  def __init__(self, game: IGame, config: dict):
     self.game = game
     self.open = [Node(game, 0)]
+    self.config = config
   
   def real_distance(self, game: IGame):
     return len(game.moves)
@@ -45,18 +46,33 @@ class AStar(ISolver):
     
     return total_score
   
+  def evaluate_state(self, state: List[int]) -> int:
+    score = 8
+    for i in range(9):
+      if state[i] == 0:
+        continue
+      if state[i] == i + 1:
+        score -= 1
+    return score
+
+  def h(self, game: IGame):
+    if self.config['alternate_heuristic']:
+      return self.evaluate_state(game.state)
+    else:
+      return self.evaluate_solution_distance(game)
+  
   def solve(self) -> IGame:
     while True:
       game = self.open[0].game
 
-      if self.evaluate_solution_distance(game) == 0:
+      if self.h(game) == 0:
         return game
       
       for move in moves:
         if game.can_move(move):
           copy = game.copy()
           copy.move(move)
-          score = self.real_distance(copy) + self.evaluate_solution_distance(copy)
+          score = self.real_distance(copy) + self.h(copy)
           self.open.append(Node(copy, score))
       del self.open[0]
 
