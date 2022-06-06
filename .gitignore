@@ -2,3 +2,5 @@
 *.pyo
 __pycache__/
 results
+*.result.json
+documentacao.pdf
